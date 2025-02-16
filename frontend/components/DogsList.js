@@ -1,8 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function DogsList({ dogs, getDogs, setCurrentDog }) {
+const navigate = useNavigate()
 const editDog = id => {
   console.log('editing dog...', id)
+  setCurrentDog(id)
+  navigate('form')
 }
 const deleteDog = id => {
   console.log('deleting dog...', id)
