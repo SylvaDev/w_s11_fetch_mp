@@ -62,7 +62,7 @@ export default function DogForm({ dog, reset, getDogs }) {
           <button type="submit">
             Create Dog
           </button>
-          <button aria-label="Reset form">Reset</button>
+          <button onClick={reset} aria-label="Reset form">Reset</button>
         </div>
       </form>
     </div>
