@@ -7,6 +7,13 @@ const initialForm = { name: '', breed: '', adopted: false }
 export default function DogForm({ dog, reset, getDogs }) {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialForm)
+  const [breeds, setBreeds] = useState([])
+  useEffect(() => {
+    fetch('/api/dogs/breeds')
+    .then(res => res.json())
+    .then(breeds => setBreeds(breeds))
+    .catch(err => console.error(err))
+  }, [])
   useEffect(() => {
     if (dog) setValues(dog)
       else setValues(initialForm)
@@ -40,7 +47,7 @@ export default function DogForm({ dog, reset, getDogs }) {
           aria-label="Dog's breed"
         >
           <option value="">---Select Breed---</option>
-          {/* Populate this dropdown using data obtained from the API */}
+          {breeds.map(br => <option key={br}>{br}</option>)}
         </select>
         <label>
           Adopted: <input
