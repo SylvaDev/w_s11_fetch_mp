@@ -4,13 +4,19 @@ import DogForm from './DogForm'
 import DogsList from './DogsList'
 
 export default function App() {
-  const [dogs, setDogs] = useState('')
+  const [dogs, setDogs] = useState([])
   const [currentDogId, setCurrentDog] = useState(null)
 
   useEffect(() => { getDogs() }, [])
 
   const getDogs = () => {
-    //fetch the dogs from /api/dogs
+    fetch('/api/dogs')
+      .then(res => {
+        if (!res.ok) throw new Error('Problem GETing dogs')
+        return res.json()
+      })
+      .then(setDogs)
+      .catch(err => console.log(err))
   }
 
   return (
