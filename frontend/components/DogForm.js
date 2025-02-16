@@ -11,7 +11,7 @@ export default function DogForm({ dog, reset, getDogs }) {
   useEffect(() => {
     fetch('/api/dogs/breeds')
     .then(res => res.json())
-    .then(breeds => setBreeds(breeds))
+    .then(breeds => setBreeds(breeds.toSorted()))
     .catch(err => console.error(err))
   }, [])
   useEffect(() => {
