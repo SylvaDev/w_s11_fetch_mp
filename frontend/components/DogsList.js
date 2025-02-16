@@ -8,7 +8,7 @@ export default function DogsList({ dogs, getDogs, setCurrentDog }) {
         {
           dogs.map(dog => (
             <li key={dog.id}>
-            Fido, Bulldog, NOT adopted
+            {dog.name}, {dog.breed}, {dog.adopted ? '' : 'NOT '}adopted
             <div>
               <button>Edit</button>
               <button>Delete</button>
