@@ -18,8 +18,44 @@ export default function DogForm({ dog, reset, getDogs }) {
     if (dog) setValues(dog)
       else setValues(initialForm)
   }, [dog])
+  const postDog = () => {
+    console.log('POSTing a new dog')
+    fetch('/api/dogs', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: new Headers({ 'Content-Type': 'application/json'})
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Problem POSTing dog')
+      getDogs()
+      navigate('/')
+    })
+    .catch(err => console.log(err))
+  }
+  const putDog = () => {
+    console.log('PUTing a new dog')
+    fetch(`/api/dogs/${values.id}`, {
+      method: 'PUT',
+      body: JSON.stringify(values),
+      headers: new Headers({ 'Content-Type': 'application/json'})
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Problem PUTing dog')
+      getDogs()
+      reset()
+      navigate('/')
+    })
+    .catch(err => console.log(err))
+  }
+  const onReset = (event) => {
+    event.preventDefault()
+    setValues(initialForm)
+    reset()
+  }
   const onSubmit = (event) => {
     event.preventDefault()
+    const action = dog ? putDog : postDog
+    action()
   }
   const onChange = (event) => {
     const { name, value, type, checked } = event.target
@@ -62,7 +98,7 @@ export default function DogForm({ dog, reset, getDogs }) {
           <button type="submit">
             {dog ? 'Update Dog' : 'Create Dog'}
           </button>
-          <button onClick={reset} aria-label="Reset form">Reset</button>
+          <button onClick={onReset} aria-label="Reset form">Reset</button>
         </div>
       </form>
     </div>
