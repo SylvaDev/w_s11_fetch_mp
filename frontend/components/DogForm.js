@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const initialForm = { name: '', breed: '', adopted: false }
 
 // Use this form for both POST and PUT requests!
-export default function DogForm() {
+export default function DogForm({ dog, reset, getDogs }) {
+  const navigate = useNavigate()
   const [values, setValues] = useState(initialForm)
+  useEffect(() => {
+    if (dog) setValues(dog)
+      else setValues(initialForm)
+  }, [dog])
   const onSubmit = (event) => {
     event.preventDefault()
   }
