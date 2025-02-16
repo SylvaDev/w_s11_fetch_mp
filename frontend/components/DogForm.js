@@ -30,7 +30,7 @@ export default function DogForm({ dog, reset, getDogs }) {
   return (
     <div>
       <h2>
-        Create Dog
+      {dog ? 'Update Dog' : 'Create Dog'}
       </h2>
       <form onSubmit={onSubmit}>
         <input
@@ -60,7 +60,7 @@ export default function DogForm({ dog, reset, getDogs }) {
         </label>
         <div>
           <button type="submit">
-            Create Dog
+            {dog ? 'Update Dog' : 'Create Dog'}
           </button>
           <button onClick={reset} aria-label="Reset form">Reset</button>
         </div>
